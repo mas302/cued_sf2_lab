@@ -18,7 +18,7 @@ def dct_encode(X, N=8):
 def dct_decode(Y, N=8):
     return colxfm(colxfm(Y.T, C(N).T).T, C(N).T)
 
-def dct_std(X, qnum, N=8, rise):
+def dct_std(X, qnum, rise, N=8):
     Y = dct_encode(X, N=N)
     Yq = quantise(Y, qnum, rise)
     Z = dct_decode(Yq, N=N)
