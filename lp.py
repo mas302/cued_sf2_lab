@@ -22,7 +22,7 @@ def lp_encode(X, n, h):
     Xn = downscale(X, h)
     return X - upscale(Xn, h), *lp_encode(Xn, n-1, h)
 
-def dct_std(X, qnum, n, h):
+def lp_std(X, qnum, n, h):
     Ys = lp_encode(X, n, h)
     Yq = [quantise(Y, qnum) for Y in Ys]
     Z = lp_decode(*Yq, h)
