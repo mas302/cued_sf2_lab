@@ -61,14 +61,14 @@ def quantdwt(Y: np.ndarray, dwtstep: np.ndarray) -> Tuple[np.ndarray, np.ndarray
 
     return Yq, dwtent
 
-def dwt_std(X, qnum, n, impulse_responce=None):
+def dwt_std(X, qnum, rise, n, impulse_responce=None):
     if impulse_responce == None:
         impulse_responce = np.ones((3, n+1))
     if impulse_responce.shape != (3, n+1):
         raise ValueError(f"Impulse responce has shape {impulse_responce.shape}, but should be shape {(3, n+1)}")
     qnums = impulse_responce * qnum
     Y = nlevdwt(X, n)
-    Yq = quantdwt(Y, qnums)[0]
+    Yq = quantdwt(Y, qnums, rise)[0]
     Z = nlevidwt(Yq, n)
     return np.std(X-Z)
 
