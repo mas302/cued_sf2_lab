@@ -28,7 +28,7 @@ def nlevidwt(Y, n):
     
     return X
 
-def quantdwt(Y: np.ndarray, dwtstep: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+def quantdwt(Y: np.ndarray, dwtstep: np.ndarray, rise) -> Tuple[np.ndarray, np.ndarray]:
     """
     Parameters:
         Y: the output of `dwt(X, n)`
@@ -46,18 +46,18 @@ def quantdwt(Y: np.ndarray, dwtstep: np.ndarray) -> Tuple[np.ndarray, np.ndarray
         if i + 1 == dwtstep.shape[1]:
             if k == 0:
                 dwtent[k, i] = entropy(Yq[:m, :m])
-                Yq[:m, :m] = quantise(Yq[:m, :m], dwtstep[0, i])
+                Yq[:m, :m] = quantise(Yq[:m, :m], dwtstep[0, i], rise)
         else:
             match k:
                 case 1:
                     dwtent[k, i] = entropy(Yq[m:2*m, :m])
-                    Yq[m:2*m, :m] = quantise(Yq[m:2*m, :m], dwtstep[k, i])
+                    Yq[m:2*m, :m] = quantise(Yq[m:2*m, :m], dwtstep[k, i], rise)
                 case 0:
                     dwtent[k, i] = entropy(Yq[:m, m:2*m])
-                    Yq[:m, m:2*m] = quantise(Yq[:m, m:2*m], dwtstep[k, i])
+                    Yq[:m, m:2*m] = quantise(Yq[:m, m:2*m], dwtstep[k, i], rise)
                 case 2:
                     dwtent[k, i] = entropy(Yq[m:2*m, m:2*m])
-                    Yq[m:2*m, m:2*m] = quantise(Yq[m:2*m, m:2*m], dwtstep[k, i])
+                    Yq[m:2*m, m:2*m] = quantise(Yq[m:2*m, m:2*m], dwtstep[k, i], rise)
 
     return Yq, dwtent
 
