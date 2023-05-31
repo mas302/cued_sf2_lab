@@ -1,6 +1,6 @@
 import numpy as np
 
-from cued_sf2_lab.laplacian_pyramid import rowint, rowdec, quantise
+from cued_sf2_lab.laplacian_pyramid import rowint, rowdec, quantise, bpp
 
 def downscale(X, h):
     return rowdec(rowdec(X , h).T, h).T
@@ -27,3 +27,13 @@ def lp_std(X, qnum, n, h, rise):
     Yq = [quantise(Y, qnum, rise) for Y in Ys]
     Z = lp_decode(*Yq, h)
     return np.std(X-Z)
+
+#ask cameron about how to use "*"" to get the sub images to work out entropy for the compression ratios
+
+def lpbpp(*args):
+    if len(args) == 3:
+        return bpp(args[0]), + bpp(upscale(args[1], args[2]))
+    else:
+        subpydec = lp_decode(*args[1::])
+        Z = args[0] + upscale(subpydec[-1], args[-1])
+        return bpp(subpydec), bpp(Z)
