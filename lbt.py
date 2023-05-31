@@ -34,9 +34,9 @@ def lbt_decode(Y, s=None, N=8):
     Zp[t,:] = colxfm(Zp[t,:], Pr.T)
     return Zp
 
-def lbt_std(X, qnum, s, N=8):
+def lbt_std(X, qnum, rise, s, N=8):
     Y = lbt_encode(X, s=s, N=N)
-    Zp = lbt_decode(quantise(Y, qnum), s=s, N=N)
+    Zp = lbt_decode(quantise(Y, qnum, rise), s=s, N=N)
     return np.std(X-Zp)
 
 def dctbpp(Yr, N):
