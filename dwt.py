@@ -39,7 +39,7 @@ def quantdwt(Y: np.ndarray, dwtstep: np.ndarray, rise) -> Tuple[np.ndarray, np.n
     """
     # your code here
     Yq = Y.copy()
-    dwtent = dwtstep.copy()
+    dwtent = np.full_like(dwtstep, 0)
 
     for (k, i), _ in np.ndenumerate(dwtstep):
         m = Y.shape[0] // (2 ** (i+1))
