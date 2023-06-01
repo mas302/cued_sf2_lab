@@ -45,19 +45,23 @@ def quantdwt(Y: np.ndarray, dwtstep: np.ndarray, rise) -> Tuple[np.ndarray, np.n
         m = Y.shape[0] // (2 ** (i+1))
         if i + 1 == dwtstep.shape[1]:
             if k == 0:
-                dwtent[k, i] = entropy(Yq[:m, :m])
                 Yq[:m, :m] = quantise(Yq[:m, :m], dwtstep[0, i], rise)
+                dwtent[k, i] = entropy(Yq[:m, :m])
+                
         else:
             match k:
                 case 1:
-                    dwtent[k, i] = entropy(Yq[m:2*m, :m])
                     Yq[m:2*m, :m] = quantise(Yq[m:2*m, :m], dwtstep[k, i], rise)
+                    dwtent[k, i] = entropy(Yq[m:2*m, :m])
+                    
                 case 0:
-                    dwtent[k, i] = entropy(Yq[:m, m:2*m])
                     Yq[:m, m:2*m] = quantise(Yq[:m, m:2*m], dwtstep[k, i], rise)
+                    dwtent[k, i] = entropy(Yq[:m, m:2*m])
+                    
                 case 2:
-                    dwtent[k, i] = entropy(Yq[m:2*m, m:2*m])
                     Yq[m:2*m, m:2*m] = quantise(Yq[m:2*m, m:2*m], dwtstep[k, i], rise)
+                    dwtent[k, i] = entropy(Yq[m:2*m, m:2*m])
+                    
 
     return Yq, dwtent
 
